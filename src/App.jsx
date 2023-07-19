@@ -1,39 +1,53 @@
 import { useEffect, useState } from "react";
-import { socket } from "./socket";
-
+import mySocket from './socket'
+import LoginForm from "./LoginForm";
 function App() {
   const [username, setUsername] = useState("username");
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [fooEvents, setFooEvents] = useState([]);
+  const [isConnected, setIsConnected] = useState(false);
+  const [events, setEvents] = useState("");
+  const [messages, setMessages] = useState([])
+  const [message, setMessage] = useState("")
+  
 
-  const onConnect = () => setIsConnected(true);
-  const onDisconnect = () => setIsConnected(false);
-  const onFooEvents = (value) =>
-    setFooEvents((prevFooEvents) => [...prevFooEvents, value]);
+  // const onEvents = (value) =>
+  //   setEvents((prevEvents) => [...prevEvents, value]);
+  const handleSubmit= (event)=> {
+    event.preventDefault()
+    mySocket.socket.emit ('uploadMessage',events)
+  }
 
-  isConnected && socket.on("connect");
-  // socket.on("disconnect", onDisconnect);
-  // socket.on("fooEvents", onFooEvents);
+  mySocket.socket.on ('downloadMessage', (msg)=> {
+setMessage(msg)
 
-  // socket.on("connection", (socket) => {
-  //   console.log("Connection");
-  //   socket.on("disconnect", () => {
-  //     console.log("disconnect");
-  //   });
-  // });
+})
+useEffect(() => {
+  
+  setMessages((prev)=> [...prev,message])
+    
+  
+  }, [message])
+  
+  
+  return (<>
+ 
+    <h1>Chat Project</h1>
 
-  return (
-    <>
-      <input
-        type="text"
-        value={username}
-        placeholder="your username"
-        // onInput={(e) => setUsername(e.target.value)}
-      />
-      <button onClick={onConnect}>Enter</button>
-      {/* <p>State: { '' + isConnected }</p> */}
+    <ul className="messages">
+      {messages.map((msg,index)=> {
+        return <li key={index}>{msg}</li>
+      })}
+    </ul>
+    
+      <input onChange={(e)=> setEvents(e.target.value)}  placeholder= "Enter Message" type="text" />
+      <button onClick={handleSubmit}>Send</button>
+  
+
+
+     {!isConnected && <LoginForm setUsername = {setUsername} username = {username} setIsConnected = {setIsConnected} isConnected = {isConnected}/>}
+
     </>
   );
 }
 
 export default App;
+
