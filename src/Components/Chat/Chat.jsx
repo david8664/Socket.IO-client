@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import LoginForm from "./LoginForm";
-import ChatGroup from "./ChatGroup";
-import socketManager from "../Functions/socketManager";
+import styles from "./style.module.css";
+import LoginForm from "../LoginForm/LoginForm";
+import ChatGroup from "../ChatGroup/ChatGroup";
+import socketManager from "../../Functions/socketManager";
 
 export default function Chat() {
   const [isConnected, setIsConnected] = useState(false);
@@ -25,13 +26,14 @@ export default function Chat() {
 
   return (
     <>
-      <h1>Chat Project</h1>
+      <h1 className={styles.header}>Chat Project</h1>
       {isConnected ? (
         <ChatGroup
           inputMessage={inputMessage}
           setInputMessage={setInputMessage}
           chatHistory={chatHistory}
           setChatHistory={setChatHistory}
+          username={username}
         />
       ) : (
         <LoginForm
