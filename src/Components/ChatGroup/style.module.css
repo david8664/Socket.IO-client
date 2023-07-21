@@ -1,0 +1,62 @@
+.chat-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.messages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 200px;
+  overflow-y: scroll; /* Use scroll instead of hidden */
+  scrollbar-width: none; /* Hide the default scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hide the default scrollbar in IE and Edge */
+}
+
+.messages::-webkit-scrollbar {
+  width: 0; /* Hide the default scrollbar in Chrome and Safari */
+}
+
+.messages li {
+  background-color: #f0f0f0;
+  padding: 8px;
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.messages > .myMessage {
+  color: black;
+}
+
+.messages > .otherMessage {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.372);
+}

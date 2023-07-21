@@ -1,5 +1,5 @@
-import React from "react";
-import socketManager from "../Functions/socketManager";
+import styles from "./style.module.css";
+import socketManager from "../../Functions/socketManager";
 
 function LoginForm({ username, setUsername, isConnected, setIsConnected }) {
   const handleChange = (e) => {
@@ -18,15 +18,16 @@ function LoginForm({ username, setUsername, isConnected, setIsConnected }) {
   };
 
   return (
-    <form onSubmit={(e) => e.preventDefault()}>
+    <form className={styles["login-form"]} onSubmit={(e) => e.preventDefault()}>
       <input
         type="text"
         value={username}
         placeholder="Username"
         onChange={handleChange}
       />
-
-      <button onClick={handleConnect}>{!isConnected && "Connect"}</button>
+      <button onClick={handleConnect}>
+        {!isConnected ? "Connect" : "Disconnect"}
+      </button>
     </form>
   );
 }
